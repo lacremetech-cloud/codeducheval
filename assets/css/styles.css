@@ -597,6 +597,49 @@ p { margin: 0 0 1em; }
 
 /* ---------- Méthode ---------- */
 .section-method { background: var(--paper); }
+
+/* ---------- Page methode.html ---------- */
+.methode-hero {
+  padding: 140px 0 64px;
+  background: var(--paper-warm);
+  text-align: center;
+}
+.methode-hero .eyebrow {
+  margin-bottom: 1.5rem;
+}
+.methode-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  color: var(--ink);
+}
+.methode-vsl {
+  max-width: 960px;
+  margin: 0 auto 2.5rem;
+}
+.methode-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.methode-cta-meta {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+.section-resume { background: var(--paper); }
+.section-offer-recap { background: var(--paper-warm); }
+.offers-recap { margin-top: 3rem; }
+
+@media (max-width: 760px) {
+  .methode-hero { padding: 110px 0 48px; }
+}
 .method-steps {
   list-style: none;
   padding: 0;
