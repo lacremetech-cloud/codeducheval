@@ -461,50 +461,29 @@ p { margin: 0 0 1em; }
   max-width: 920px;
   margin: 0 auto;
 }
-.video-placeholder {
+.vimeo-embed {
   position: relative;
-  aspect-ratio: 16 / 9;
-  background:
-    linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 100%);
+  width: 100%;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--ink);
   box-shadow: var(--shadow-lg);
 }
-.video-play {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: var(--orange);
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--white);
-  transition: all 0.2s ease;
-  box-shadow: 0 8px 32px rgba(232, 93, 47, 0.5);
-}
-.video-play:hover {
-  transform: scale(1.08);
-  background: var(--orange-deep);
-}
-.video-play svg {
-  width: 36px; height: 36px;
-  fill: currentColor;
-  margin-left: 4px;
-}
-.video-caption {
+.vimeo-embed iframe {
   position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
-  margin: 0;
-  white-space: nowrap;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.vimeo-16-9 { padding-top: 56.25%; }
+.vimeo-9-16 { padding-top: 177.78%; }
+.video-caption-below {
+  text-align: center;
+  margin: 18px 0 0;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
 }
 
 /* ---------- Story / À propos ---------- */
@@ -791,35 +770,26 @@ p { margin: 0 0 1em; }
 .testimonials { margin-top: 3rem; }
 .testimonial {
   background: var(--white);
-  padding: 32px;
+  padding: 18px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--line);
   margin: 0;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
 }
-.testimonial::before {
-  content: '“';
-  position: absolute;
-  top: -8px; left: 24px;
-  font-family: var(--font-serif);
-  font-size: 5rem;
-  line-height: 1;
-  color: var(--orange);
-  opacity: 0.4;
+.testimonial:hover {
+  border-color: var(--orange-soft);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
 }
-.testimonial blockquote {
-  margin: 0 0 24px;
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-style: italic;
-  line-height: 1.5;
-  color: var(--ink);
+.testimonial-video .vimeo-embed {
+  margin-bottom: 18px;
 }
 .testimonial figcaption {
   display: flex;
   flex-direction: column;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
+  padding: 4px 12px 8px;
 }
 .t-name {
   font-weight: 600;
