@@ -548,7 +548,7 @@ p { margin: 0 0 1em; }
 }
 .gallery-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1.4fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-top: 3rem;
 }
@@ -557,10 +557,14 @@ p { margin: 0 0 1em; }
   margin: 0;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   background: var(--paper-warm);
   transition: transform 0.3s ease;
 }
+.gallery-item img[src*="hero-spectacle"] { object-position: center 35%; }
+.gallery-item img[src*="catherine-piaffer"] { object-position: center 45%; }
+.gallery-item img[src*="catherine-portrait"] { object-position: 60% center; }
+.gallery-item img[src*="catherine-coaching"] { object-position: center 30%; }
 .gallery-item:hover {
   transform: translateY(-4px);
 }
