@@ -7,12 +7,14 @@
 
   // ---------- Header scroll state ----------
   const header = document.getElementById('siteHeader');
-  const onScroll = () => {
-    if (window.scrollY > 20) header.classList.add('is-scrolled');
-    else header.classList.remove('is-scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 20) header.classList.add('is-scrolled');
+      else header.classList.remove('is-scrolled');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
   // ---------- Mobile nav toggle ----------
   const toggle = document.querySelector('.nav-toggle');
@@ -21,10 +23,12 @@
     toggle.addEventListener('click', () => {
       const open = nav.classList.toggle('is-open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('nav-open', open);
     });
     nav.querySelectorAll('a').forEach(a =>
       a.addEventListener('click', () => {
         nav.classList.remove('is-open');
+        document.body.classList.remove('nav-open');
         toggle.setAttribute('aria-expanded', 'false');
       })
     );
@@ -42,12 +46,68 @@
     });
   });
 
-  // ---------- Video placeholder click ----------
-  const videoPlay = document.querySelector('.video-play');
-  if (videoPlay) {
-    videoPlay.addEventListener('click', () => {
-      // TODO : remplacer par l'embed YouTube / Vimeo / Loom de la VSL Catherine
-      console.info('TODO — Brancher la VSL Catherine ici (YouTube / Vimeo embed).');
+  // ---------- Scroll-reveal via IntersectionObserver ----------
+  const reveals = document.querySelectorAll('.reveal');
+  if (reveals.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    // Fallback: just show everything
+    reveals.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // ---------- Auto-tag elements for scroll-reveal ----------
+  // Add .reveal to common content blocks so animations work without
+  // touching the HTML for every section.
+  const autoRevealSelectors = [
+    '.section-title',
+    '.section-lede',
+    '.section-foot',
+    '.cards .card',
+    '.method-step',
+    '.offer',
+    '.minicours-card',
+    '.gallery-item',
+    '.testimonial',
+    '.faq-item',
+    '.pullquote',
+    '.story-text > p',
+    '.eye-quote',
+    '.parallax-title',
+    '.parallax-lede'
+  ];
+  if ('IntersectionObserver' in window) {
+    const io2 = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io2.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    autoRevealSelectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach((el, i) => {
+        if (!el.classList.contains('reveal')) {
+          el.classList.add('reveal');
+          // Cascade delay for siblings in same parent
+          const siblings = el.parentElement
+            ? Array.from(el.parentElement.querySelectorAll(sel))
+            : [];
+          const idx = siblings.indexOf(el);
+          if (idx >= 1 && idx <= 3) {
+            el.classList.add(`reveal-delay-${idx}`);
+          }
+        }
+        io2.observe(el);
+      });
     });
   }
 
