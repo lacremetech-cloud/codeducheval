@@ -111,6 +111,22 @@
     });
   }
 
+  // ---------- Sticky bottom CTA bar ----------
+  const stickyBar = document.getElementById('stickyBar');
+  if (stickyBar) {
+    let lastShown = false;
+    const trigger = () => {
+      const show = window.scrollY > window.innerHeight * 0.85;
+      if (show !== lastShown) {
+        stickyBar.classList.toggle('is-visible', show);
+        stickyBar.setAttribute('aria-hidden', show ? 'false' : 'true');
+        lastShown = show;
+      }
+    };
+    window.addEventListener('scroll', trigger, { passive: true });
+    trigger();
+  }
+
   // ---------- Year in footer ----------
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
